@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Director extends Model
 {
     use HasFactory;
+
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+
+    }
+
+    public function movies()
+    {
+        return $this->hasMany(Movie::class);
+
+    }
 }

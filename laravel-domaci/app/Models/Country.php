@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Country extends Model
 {
     use HasFactory;
+    protected $fillable = ['name'];
+
+    public function directors()
+    {
+        
+        return $this->hasMany(Director::class);
+        
+    }
 }
