@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('directors', function (Blueprint $table) {
-            $table->foreignId('country_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('country_id');
         });
     }
 
