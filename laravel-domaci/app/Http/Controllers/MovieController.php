@@ -6,6 +6,7 @@ use App\Http\Resources\MovieCollection;
 use App\Http\Resources\MovieResource;
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class MovieController extends Controller
 {
@@ -40,7 +41,28 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'title' => 'required|string|max:150',
+            'raiting' => 'required',
+            'description' => 'required|string|max:255',
+            'year' => 'required|integer',
+            'director_id' => 'required',
+            'genre_id' => 'required',
+        ]);
+        if($validator->fails())
+        return response()->json($validator->errors());
+
+        $movie = Movie::create([
+            'title' => $request->title,
+            'raiting' =>$request->raiting,
+            'description' => $request->description,
+            'year' => $request->year,
+            'director_id' => $request->director_id,
+            'genre_id' => $request->genre_id,
+            
+        ]);
+
+        return response()->json(['Film je uspesno kreiran!. Kreirao je korisnik '.$request->user()->name.'.', new MovieResource($movie)]); 
     }
 
     /**
@@ -74,7 +96,29 @@ class MovieController extends Controller
      */
     public function update(Request $request, Movie $movie)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'title' => 'required|string|max:150',
+            'raiting' => 'required',
+            'description' => 'required|string|max:255',
+            'year' => 'required|integer',
+            'director_id' => 'required',
+            'genre_id' => 'required',
+
+        ]);
+        if($validator->fails())
+        return response()->json($validator->errors());
+
+        
+        $movie->title = $request->title;
+        $movie->raiting = $request->raiting;
+        $movie->description = $request->description;
+        $movie->year = $request->year;
+        $movie->director_id =$request->director_id;
+        $movie->genre_id = $request->genre_id;
+
+        $movie->save();
+
+        return response()->json(['Film je uspesno azuriran!.', new MovieResource($movie)]); //MovieResource znaci da vrati u MovieResource formatu.
     }
 
     /**
@@ -85,6 +129,6 @@ class MovieController extends Controller
      */
     public function destroy(Movie $movie)
     {
-        //
+        return response()->json('Film je uspesno obrisan.');
     }
 }

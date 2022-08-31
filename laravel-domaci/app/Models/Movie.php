@@ -9,6 +9,7 @@ class Movie extends Model
 {
     use HasFactory;
 
+    protected $guarded =[];
 
     public function genre()
     {

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\MovieController;
 use Illuminate\Http\Request;
@@ -21,8 +22,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-//Route::get('director', [DirectorController::class, 'index']);
+Route::get('directors', DirectorController::class);
 
-Route::resource('directors', DirectorController::class);
+Route::post('/registration',[AuthController::class, 'registration']);
 
-Route::resource('movies', MovieController::class);
+Route::post('/login',[AuthController::class, 'login']);
+
+Route::get('/movies', MovieController::class);
+
+Route::middleware('auth:sanctum')->group(function () {
+    
+    Route::resource('movies', MovieController::class)->only(['update','destroy']);
+    Route::post('store', [MovieController::class, 'store']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
