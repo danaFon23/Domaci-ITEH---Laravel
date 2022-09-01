@@ -22,13 +22,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('directors', DirectorController::class);
-
 Route::post('/registration',[AuthController::class, 'registration']);
 
 Route::post('/login',[AuthController::class, 'login']);
 
-Route::get('/movies', MovieController::class);
+Route::resource('/movies', MovieController::class);
+
+Route::get('directors', [DirectorController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
     

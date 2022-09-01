@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\DirectorCollection;
 use App\Http\Resources\DirectorResource;
 use App\Models\Director;
-use Illuminate\Http\Request;
+
 
 class DirectorController extends Controller
 {

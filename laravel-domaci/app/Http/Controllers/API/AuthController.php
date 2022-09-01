@@ -50,7 +50,7 @@ class AuthController extends Controller
     {
         $name = $request->user()->name;
         $request->user()->currentAccessToken()->delete();
-        return response()->json(['message' => 'Korisnik '.$name. 'je uspesno izlogovan i token je uspesno obrisan!']);
+        return response()->json(['message' => 'Korisnik '.$name. ' je uspesno izlogovan i token je uspesno obrisan!']);
     }
 
 
